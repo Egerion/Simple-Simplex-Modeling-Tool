@@ -1,0 +1,175 @@
+//
+//  Standard Form.cpp
+//  Simple Simplex Modeling Tool
+//
+//  Created by Ege Demirbaş on 1.10.2019.
+//  Copyright © 2019 Ege Demirbaş. All rights reserved.
+//
+#include "SimplexAlgorithm.hpp"
+#include "StandardForm.hpp"
+#include "MainControl.hpp"
+#include <iostream>
+
+using namespace std;
+
+ int ModellingClass::TakeModel()
+{
+    
+    //GLOBAL VARIABLES
+    int NumberOfVariables, NumberOfConst, SlackVarrSize, Index;
+    double ObjFuncCoeff[NumberOfVariables], SlackVarr[SlackVarrSize], ArtificalVarr[SlackVarrSize], RHSVarr[NumberOfConst];
+    double ContsCoeff[NumberOfConst][NumberOfVariables];
+    
+    string SignVisual[SlackVarrSize],WhichMethod, SignType, CurrentSign;
+    
+    //START MODELLING
+    cout << "=============================================================" << endl;
+    cout << "this code takes your lp model and convert it to standard form" << endl;
+    cout << "=============================================================" << endl;
+
+    //TAKE OBJECTIVE FUNCTION
+    printf("do you want to maximize or minimize? (Type MAX or max)"); cin >> WhichMethod;
+    printf("how many variables do you have on objective function"); cin >> NumberOfVariables;
+    
+    if(( WhichMethod == "MAX" || WhichMethod == "max") && (NumberOfVariables > 0))
+    {
+        int ConstantName = 0;
+        for(int k = 0; k < NumberOfVariables; k++)
+        {
+            ConstantName += 1;
+            printf("enter %d. variables's constant:",ConstantName); scanf("%lf", &ObjFuncCoeff[k]);
+        }
+    }
+    else
+    {
+        SystemControlClass BreakSystem;
+        BreakSystem.RestartProgram();
+    }
+    //TAKE CONSTRAINTS
+    printf("how many constraints do you have ?"); cin >> NumberOfConst;
+    
+    if(NumberOfConst > 0)
+    {
+        int ConstantName = 0; //set back to zero
+        int ConstraintName = 0;
+        for(int j = 0; j < NumberOfConst; j++)
+        {
+            ConstraintName += 1;
+            cout << "=============================================================" << endl;
+            cout << "enter the " << ConstraintName << "'th constraints constants"   << endl;
+            cout << "=============================================================" << endl;
+            
+            for(int i = 0; i < NumberOfVariables; i++)
+            {
+                ConstantName += 1;
+                printf("enter %d'th variables's constant:",ConstantName); scanf("%lf", &ContsCoeff[j][i]);
+            }
+            //get the rhs type slack or excess?
+            printf("what is the sign of RHS ? (< or > or >= or <=)"); cin >> SignType;
+            
+            if(SignType == "<")
+            {
+                SignVisual[j] = "+S1";
+                SlackVarr[j] = 1;
+            }
+            else if(SignType == ">")
+            {
+                SignVisual[j] = "+E1";
+                SlackVarr[j] = -1;
+            }
+            else if(SignType == "=")
+            {
+                SignVisual[j] = "+A1";
+                //TODO
+            }
+            else if((SignType == "<=") || (SignType == "=<"))
+            {
+                SignVisual[j] = " +S1 +A1";
+                SlackVarr[j] = 1;
+                ArtificalVarr[j] =  1;
+            }
+            else if((SignType == ">=") || ("=>"))
+            {
+               SignVisual[j] = " +S1 -A1";
+               SlackVarr[j] = 1;
+               ArtificalVarr[j] =  1;
+            }
+            printf("what is the value of RHS"); cin >> RHSVarr[j];
+            //take the right hand side of the constraint
+        }
+    }
+    else
+    {
+        SystemControlClass BreakSystem;
+        BreakSystem.RestartProgram();
+    }
+    
+    //PRINT THE STANDARD FORM
+    cout << "=============================================================" << endl;
+    cout << "                 HERE IS YOUR GOD DAMN LP MODEL              " << endl;
+    cout << "=============================================================" << endl;
+    cout << "                                                             " << endl;
+    
+    //print the objective function
+    printf("OBJECTIVE FUNCTION:  Z "); //head of the objective function
+
+    Index = 0;
+    for(int t = 0; t < NumberOfVariables; t++)
+    {
+        Index += 1;
+        printf("%0.2lfX%d ", -ObjFuncCoeff[t] ,Index);
+    }
+    printf("= 0"); //tail of objective function
+    
+    cout << "                                                             " << endl;
+    cout << "                                                             " << endl;
+    
+    //print the constraints
+    Index = 0; //set back to zero
+    for(int j = 0; j < NumberOfConst; j++)
+    {
+    cout << "                                                             " << endl;
+    cout << "                                                             " << endl;
+        printf("%d'th CONSTRAINT:  ", j+1);
+    
+        for(int i = 0; i < NumberOfVariables; i++)
+        {
+            Index += 1;
+            printf("%0.2lfX%d+ ", ContsCoeff[j][i] ,Index);
+        }
+        
+        
+        printf("%s = %0.2lf", SignVisual[j].c_str(), RHSVarr[j]);
+    cout << "                                                             " << endl;
+    cout << "                                                             " << endl;
+    }
+    Index = 0;
+    for(int i = 0; i < NumberOfVariables; i++)
+    {
+        Index += 1;
+        printf("X%d + ", Index);
+        if(i == NumberOfVariables -1)
+        {
+            Index += 1;
+            printf("X%d ", Index);
+        }
+    }
+    
+    for(int i = 0; i < NumberOfConst; i++)
+    {
+        if (i < 0)
+            break;
+        printf("%s",SignVisual[i].c_str());
+    }
+    printf(" > 0 (non negativity)");
+    
+    cout << "                                                             " << endl;
+    cout << "                                                             " << endl;
+    
+    //START SIMPLEX CALCULATINOS
+    /*
+    ModelCalculationClass StartModelling;
+    StartModelling.SimplexAlgorithm(ObjFuncCoeff, NumberOfVariables, ContsCoeff, NumberOfVariables, SlackVarr, SlackVarrSize, ArtificalVarr, SlackVarrSize, RHSVarr, NumberOfConst);
+    */
+    return 0;
+}
