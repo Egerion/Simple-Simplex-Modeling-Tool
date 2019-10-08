@@ -14,10 +14,126 @@ using namespace std;
 
  int ModellingClass::TakeModel()
 {
+
+    int VarrSize, ConstSize, ArtfSize, RhsSize;
+    int ObjFunc[VarrSize];
+    int Const[ConstSize][VarrSize];
+    int RHS[RhsSize];
+    int ArfVarr[ConstSize];
+    int SlackVarr[ConstSize];
     
+    string SignVisual[10],WhichMethod, SignType, CurrentSign;
+    
+    cout << "=============================================================" << endl;
+    cout << "this code takes your lp model and convert it to standard form" << endl;
+    cout << "=============================================================" << endl;
+    cout << "do you want to maximize or minimize? (type max or min)" << endl; cin >> WhichMethod;
+    cout << "how many variables do you have in objective function" << endl; cin >> VarrSize;
+    cout << "how many constraints do you have ?" << endl; cin >> ConstSize;
+    cout << " " << endl;
+    
+    //OBJECTIVE FUNCTION
+    if((WhichMethod == "MAX" or "max") and (VarrSize > 0))
+    {
+        int ConstantName = 0;
+        for(int i = 0; i < VarrSize; i++)
+        {
+            ConstantName += 1;
+            cout << "enter " <<ConstantName << ". variable's coefficent:" << endl; cin >> ObjFunc[i];
+        }
+    }
+    else
+    {
+        SystemControlClass BreakSystem;
+        BreakSystem.RestartProgram();
+    }
+    
+    //CONSTRAINTS
+    if(ConstSize > 0)
+    {
+        int ConstantName = 0;
+        int ConstraintName = 0;
+        for(int i = 0; i < ConstSize; i ++)
+        {
+            ConstraintName += 1;
+            cout << "=============================================================" << endl;
+            cout << "enter the " << ConstraintName << "'th constraints constants"   << endl;
+            cout << "=============================================================" << endl;
+            
+            for(int j = 0; j < VarrSize; j++)
+            {
+                ConstantName += 1;
+                cout << "enter" << ConstantName << "'th variables's constant:" << endl; cin >> Const[i][j];
+            }
+            
+            cout <<"what is the sign of RHS ? (< or > or >= or <=)"<< endl; cin >> SignType;
+            
+            if(SignType == "<")
+            {
+                SlackVarr[i] = 1;
+            }
+            else if(SignType == ">")
+            {
+                SlackVarr[i] = -1;
+            }
+            else if((SignType == "<=") || (SignType == "=<"))
+            {
+                SlackVarr[i] = 1;
+                ArfVarr[i] = 1;
+            }
+            else if((SignType == ">=") || ("=>"))
+            {
+                SlackVarr[i] = -1;
+                ArfVarr[i] = 1;
+            }
+        
+            cout << "what is the vaule of RHS?" << endl; cin >> RHS[i];
+
+        }
+    }
+    else
+    {
+       SystemControlClass BreakSystem;
+       BreakSystem.RestartProgram();
+    }
+    
+    //PRINT THE RESULTS
+    cout << "=============================================================" << endl;
+    cout << "                 HERE IS YOUR GOD DAMN LP MODEL              " << endl;
+    cout << "=============================================================" << endl;
+    cout << "                                                             " << endl;
+
+    //CONSTRAINTS
+    int Index = 0;
+    for(int i = 0; i < ConstSize; i++)
+    {
+        for(int j = 0; j < VarrSize; j++)
+        {
+            Index +=1;
+            cout << Index << "th constraint: " << Const[i][j] << "X" << Index << " +" << endl;
+        }
+    }
+    
+    
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
     //GLOBAL VARIABLES
     int NumberOfVariables, NumberOfConst, SlackVarrSize, Index;
-    double ObjFuncCoeff[NumberOfVariables], SlackVarr[SlackVarrSize], ArtificalVarr[SlackVarrSize], RHSVarr[NumberOfConst];
+    double ObjFuncCoeff[NumberOfVariables];
+    double SlackVarr[SlackVarrSize];
+    double ArtificalVarr[SlackVarrSize];
+    double RHSVarr[NumberOfConst];
     double ContsCoeff[NumberOfConst][NumberOfVariables];
     
     string SignVisual[SlackVarrSize],WhichMethod, SignType, CurrentSign;
@@ -131,7 +247,7 @@ using namespace std;
     cout << "                                                             " << endl;
     cout << "                                                             " << endl;
         printf("%d'th CONSTRAINT:  ", j+1);
-    
+        Index = 0;
         for(int i = 0; i < NumberOfVariables; i++)
         {
             Index += 1;
@@ -165,7 +281,7 @@ using namespace std;
     
     cout << "                                                             " << endl;
     cout << "                                                             " << endl;
-    
+    */
     //START SIMPLEX CALCULATINOS
     /*
     ModelCalculationClass StartModelling;

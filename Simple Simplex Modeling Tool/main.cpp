@@ -13,35 +13,29 @@ using namespace std;
 int main()
 {
     
-    cout << "=============================================================" << endl;
-    cout << "STANDARD FORM CONVERSION 1)" << endl;
-    cout << "LP MODELLING 2)" << endl;
-    cout << "=============================================================" << endl;
+    int Options;
+    cout << "SELECT OPTION" << endl;
+    cout <<" "<< endl;
+    cout << "1- Standard Form Conversion" << endl;
+    cout <<" "<< endl;
+    cout << "2- Simplex Modelling" << endl;
+    cin >> Options;
     
-    int Selected = 0; int UsersSelection; cin >> UsersSelection;
-    
-    while(Selected == 0)
+    switch (Options)
     {
-        //ONLY STANDARD FORM CONVERSION
-        if(UsersSelection == 1)
-        {
+        case 1:
+            
             ModellingClass getModel;
             getModel.TakeModel();
-            Selected++;
-        }
-        //SIMPLEX MODELLING1
-        else if(UsersSelection == 2)
-        {
-            ModellingClass getModel;
-            getModel.TakeModel();
-            Selected++;
-        }
-        //SIMPLEX + STANDARD FORM
-        else
-        {
-            printf("TODO");
-        }
-        
+            break;
+            
+        default:
+            
+            SystemControlClass BreakSystem;
+            BreakSystem.RestartProgram();
+            
     }
+
+    
     return 0;
 }
