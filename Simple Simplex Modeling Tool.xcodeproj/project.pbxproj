@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CEE83D94241A1CA3000731A8 /* FacilityAlgorithms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEE83D92241A1CA3000731A8 /* FacilityAlgorithms.cpp */; };
 		CEF9C4E8234373AC008F3454 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEF9C4E7234373AC008F3454 /* main.cpp */; };
 		CEF9C4F0234373F1008F3454 /* StandardForm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEF9C4EE234373F1008F3454 /* StandardForm.cpp */; };
 		CEF9C4F9234374A3008F3454 /* MainControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEF9C4F7234374A3008F3454 /* MainControl.cpp */; };
-		CEFB9EC72348838800D1BDCE /* SimplexAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CEFB9EC52348838800D1BDCE /* SimplexAlgorithm.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,14 +26,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CEE83D92241A1CA3000731A8 /* FacilityAlgorithms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FacilityAlgorithms.cpp; sourceTree = "<group>"; };
 		CEF9C4E4234373AC008F3454 /* Simple Simplex Modeling Tool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Simple Simplex Modeling Tool"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF9C4E7234373AC008F3454 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CEF9C4EE234373F1008F3454 /* StandardForm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StandardForm.cpp; sourceTree = "<group>"; };
-		CEF9C4EF234373F1008F3454 /* StandardForm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = StandardForm.hpp; sourceTree = "<group>"; };
 		CEF9C4F7234374A3008F3454 /* MainControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MainControl.cpp; sourceTree = "<group>"; };
 		CEF9C4F8234374A3008F3454 /* MainControl.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MainControl.hpp; sourceTree = "<group>"; };
-		CEFB9EC52348838800D1BDCE /* SimplexAlgorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SimplexAlgorithm.cpp; sourceTree = "<group>"; };
-		CEFB9EC62348838800D1BDCE /* SimplexAlgorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SimplexAlgorithm.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,12 +48,10 @@
 		CEF9C4DB234373AC008F3454 = {
 			isa = PBXGroup;
 			children = (
-				CEF9C4EE234373F1008F3454 /* StandardForm.cpp */,
-				CEFB9EC52348838800D1BDCE /* SimplexAlgorithm.cpp */,
-				CEFB9EC62348838800D1BDCE /* SimplexAlgorithm.hpp */,
-				CEF9C4EF234373F1008F3454 /* StandardForm.hpp */,
-				CEF9C4F7234374A3008F3454 /* MainControl.cpp */,
 				CEF9C4F8234374A3008F3454 /* MainControl.hpp */,
+				CEE83D92241A1CA3000731A8 /* FacilityAlgorithms.cpp */,
+				CEF9C4EE234373F1008F3454 /* StandardForm.cpp */,
+				CEF9C4F7234374A3008F3454 /* MainControl.cpp */,
 				CEF9C4E6234373AC008F3454 /* Simple Simplex Modeling Tool */,
 				CEF9C4E5234373AC008F3454 /* Products */,
 			);
@@ -136,7 +132,7 @@
 			files = (
 				CEF9C4E8234373AC008F3454 /* main.cpp in Sources */,
 				CEF9C4F9234374A3008F3454 /* MainControl.cpp in Sources */,
-				CEFB9EC72348838800D1BDCE /* SimplexAlgorithm.cpp in Sources */,
+				CEE83D94241A1CA3000731A8 /* FacilityAlgorithms.cpp in Sources */,
 				CEF9C4F0234373F1008F3454 /* StandardForm.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

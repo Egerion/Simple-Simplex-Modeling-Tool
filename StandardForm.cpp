@@ -5,8 +5,6 @@
 //  Created by Ege Demirbaş on 1.10.2019.
 //  Copyright © 2019 Ege Demirbaş. All rights reserved.
 //
-#include "SimplexAlgorithm.hpp"
-#include "StandardForm.hpp"
 #include "MainControl.hpp"
 #include <iostream>
 
@@ -15,12 +13,12 @@ using namespace std;
  int ModellingClass::TakeModel()
 {
 
-    int VarrSize, ConstSize, ArtfSize, RhsSize;
-    int ObjFunc[VarrSize];
-    int Const[ConstSize][VarrSize];
-    int RHS[RhsSize];
-    int ArfVarr[ConstSize];
-    int SlackVarr[ConstSize];
+    int VarrSize, ConstSize, ArtfSize, RhsSize, VarrSize2;
+    int ObjFunc[500];
+    int Const[500][500];
+    int RHS[500];
+    int ArfVarr[500];
+    int SlackVarr[500];
     
     string SignVisual[10],WhichMethod, SignType, CurrentSign;
     
@@ -32,14 +30,16 @@ using namespace std;
     cout << "how many constraints do you have ?" << endl; cin >> ConstSize;
     cout << " " << endl;
     
+    VarrSize2 = VarrSize;
+    
     //OBJECTIVE FUNCTION
     if((WhichMethod == "MAX" or "max") and (VarrSize > 0))
     {
         int ConstantName = 0;
-        for(int i = 0; i < VarrSize; i++)
+        for(int t = 0; t < VarrSize; t++)
         {
             ConstantName += 1;
-            cout << "enter " <<ConstantName << ". variable's coefficent:" << endl; cin >> ObjFunc[i];
+            cout << "enter " <<ConstantName << ". variable's coefficent:" << endl; cin >> ObjFunc[t];
         }
     }
     else
@@ -60,7 +60,7 @@ using namespace std;
             cout << "enter the " << ConstraintName << "'th constraints constants"   << endl;
             cout << "=============================================================" << endl;
             
-            for(int j = 0; j < VarrSize; j++)
+            for(int j = 0; j < VarrSize2; j++)
             {
                 ConstantName += 1;
                 cout << "enter" << ConstantName << "'th variables's constant:" << endl; cin >> Const[i][j];
@@ -102,9 +102,21 @@ using namespace std;
     cout << "                 HERE IS YOUR GOD DAMN LP MODEL              " << endl;
     cout << "=============================================================" << endl;
     cout << "                                                             " << endl;
+    
+    //OBJECTIVE FUNCTIION
+    int Index = 0;
+    for(int t = 0; t < VarrSize; t++)
+    {
+        Index += 1;
+        printf("%dX%d ", -ObjFunc[t] ,Index);
+    }
+    printf("= 0"); //tail of objective function
+    
+    cout << "                                                             " << endl;
+    cout << "                                                             " << endl;
 
     //CONSTRAINTS
-    int Index = 0;
+    Index = 0;
     for(int i = 0; i < ConstSize; i++)
     {
         for(int j = 0; j < VarrSize; j++)
