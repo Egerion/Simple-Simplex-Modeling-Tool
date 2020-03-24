@@ -14,11 +14,7 @@ using namespace std;
 {
 
     int VarrSize, ConstSize, ArtfSize, RhsSize, VarrSize2;
-    int ObjFunc[500];
-    int Const[500][500];
-    int RHS[500];
-    int ArfVarr[500];
-    int SlackVarr[500];
+    int ObjFunc[500], Const[500][500], RHS[500], ArfVarr[500], SlackVarr[500];
     
     string SignVisual[10],WhichMethod, SignType, CurrentSign;
     
@@ -130,9 +126,7 @@ using namespace std;
 
 
 
-    
-    
-    
+
     
     
     
